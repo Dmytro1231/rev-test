@@ -1,15 +1,18 @@
-import { configureStore, ConfigureStoreOptions } from "@reduxjs/toolkit";
-import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
+import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import pokemonReducer from './features/pokemons';
 
-const createStore = (options?: ConfigureStoreOptions["preloadedState"]) =>
-  configureStore({
-    reducer: {},
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
-    ...options,
-  });
+export const store = configureStore({
+  reducer: {
+    pokemons: pokemonReducer,
+  },
+});
 
-export const store = createStore();
-type AppDispatch = typeof store.dispatch;
-export const useAppDispatch = () => useDispatch<AppDispatch>();
-export type AppState = ReturnType<typeof store.getState>;
-export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;
+export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string>
+>;

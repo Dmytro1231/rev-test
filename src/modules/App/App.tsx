@@ -1,21 +1,17 @@
 import { Route, Routes } from "react-router-dom";
+import { Homepage } from "../HomePage/HomePage";
+import { StatsPage } from "../StatsPage/StatsPage";
+import { Container } from "./style";
 
-const Homepage = () => {
-  return (
-    <div>
-      <h1>
-        Pokedex
-      </h1>
-    </div>
-  )
-}
 
 export const App = () => {
   return (
-    <div className="app">
+    <Container>
       <Routes>
         <Route path="/" element={<Homepage />} />
+
+        <Route path="/details/:pokemonName" element={<StatsPage />} />
       </Routes>
-    </div>
+    </Container>
   );
 }
